@@ -105,19 +105,18 @@ const WeeklyRecap: React.FC = () => {
   ];
   
   // Sample text recap for demonstration
-  const textRecap = recap.text_recap || `
-    ## ${recap.group_name} Weekly Recap: ${recap.period}
-    
-    What a week it's been in **${recap.group_name}**! We saw a total of **${recap.total_messages} messages** and **${recap.total_likes} likes** exchanged. Friday was our most active day, with conversations peaking around evening hours.
-    
-    **${recap.top_poster.name}** dominated the chat this week with an impressive **${recap.top_poster.message_count} messages**, while **${recap.most_liked.name}** was clearly the crowd favorite, collecting **${recap.most_liked.likes_count} likes**.
-    
-    The group couldn't stop talking about ${recap.trending_topics.join(', ')}. Plenty of hot takes, but none quite as memorable as ${recap.highlight_message.sender}'s gem: "${recap.highlight_message.text}" which collected ${recap.highlight_message.likes} likes!
-    
-    Some members were noticeably quiet this week – no messages from the usual suspects. Are they on vacation or just lurking? 👀
-    
-    Looking forward to next week's chaos! Remember, what happens in GroupMe gets immortalized in these recaps.
-  `;
+  const textRecap = `Another week, another complete derailment of productivity.
+
+It started off innocent enough — Maddie asking for class notes — but somehow by Tuesday night the chat turned into a full debate about who would survive the longest in a zombie apocalypse (consensus: definitely not Jake).
+
+By Thursday, plans for Friday's tailgate spiraled into a 73-message thread about whether you can grill in a parking lot without getting fined.
+(Erin volunteered to "handle permits" — still waiting on that update.)
+
+Friday night blew up with blurry pics, bad karaoke videos, and at least three separate "WE OUTSIDE" texts nobody remembered sending.
+
+Sunday was mostly recovery mode, memes about finals stress, and Chris asking if it's "too early to drop out."
+
+All in all — peak chaos, zero actual solutions, 10/10 entertainment.`;
   
   return (
     <ScrollArea className="h-screen">
@@ -443,11 +442,11 @@ const WeeklyRecap: React.FC = () => {
             Newsletter Recap
           </h2>
           
-          <Card className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800">
+          <Card className="bg-gradient-to-r from-blue-50/80 to-purple-50/80 border-blue-200/50 dark:from-blue-950/50 dark:to-purple-900/50 dark:border-blue-800/30">
             <CardContent className="pt-6">
               <div className="prose dark:prose-invert max-w-full">
                 {textRecap.split('\n\n').map((paragraph, index) => (
-                  <p key={index} className={index === 0 ? "text-xl font-bold mb-4" : "mb-3"}>
+                  <p key={index} className="mb-4 text-gray-700 dark:text-gray-200 leading-relaxed">
                     {paragraph}
                   </p>
                 ))}
