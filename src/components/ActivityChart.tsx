@@ -53,7 +53,7 @@ const ActivityChart: React.FC<ActivityChartProps> = ({ data }) => {
   
   // Custom tooltip that hides when hovering over the max day
   const CustomTooltip = ({ active, payload }: any) => {
-    if (active && payload && payload.length && !payload[0].payload.isMax) {
+    if (active && payload && payload.length && payload[0]?.payload && !payload[0].payload.isMax) {
       return (
         <div className="bg-white p-2 border rounded-md shadow-sm text-xs">
           <p className="font-medium">{`${payload[0].payload.day}: ${payload[0].value} messages`}</p>
@@ -65,6 +65,11 @@ const ActivityChart: React.FC<ActivityChartProps> = ({ data }) => {
   
   const CustomizedLabel = (props: any) => {
     const { x, y, width, value, payload } = props;
+    
+    // Safety check to ensure payload exists and has the necessary properties
+    if (!payload) {
+      return null;
+    }
     
     // Only show label for bars
     return (
