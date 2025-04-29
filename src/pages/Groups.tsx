@@ -7,10 +7,11 @@ import { Switch } from "@/components/ui/switch";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Search, Lock, ChevronRight } from "lucide-react";
+import { Search, Lock, ChevronRight, MessageSquare } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from "@/components/ui/tooltip";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
 
 const FREE_GROUP_LIMIT = 1;
 
@@ -22,6 +23,7 @@ const Groups: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCount, setSelectedCount] = useState(0);
   const [isPremium, setIsPremium] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const loadGroups = async () => {
@@ -29,7 +31,6 @@ const Groups: React.FC = () => {
         try {
           const fetchedGroups = await fetchGroups(user.token);
           
-          // Mark first one as selected by default
           const groupsWithSelection = fetchedGroups.map((group, index) => ({
             ...group,
             selected: index === 0
@@ -95,6 +96,10 @@ const Groups: React.FC = () => {
 
   const handleUpgradeClick = () => {
     toast.info("This would take you to the upgrade page!");
+  };
+
+  const handleViewRecap = (groupId: string) => {
+    navigate(`/recap/${groupId}`);
   };
 
   return (
@@ -177,30 +182,44 @@ const Groups: React.FC = () => {
                       <p className="text-sm text-muted-foreground">{group.member_count} members</p>
                     </div>
                     
-                    {isGroupLocked ? (
-                      <TooltipProvider>
-                        <Tooltip>
-                          <TooltipTrigger asChild>
-                            <div className="flex items-center gap-2">
-                              <Lock className="h-4 w-4 text-muted-foreground" />
-                              <Switch 
-                                checked={false}
-                                disabled={true}
-                                className="opacity-50"
-                              />
-                            </div>
-                          </TooltipTrigger>
-                          <TooltipContent>
-                            <p>Unlock multiple groups with Message Board+</p>
-                          </TooltipContent>
-                        </Tooltip>
-                      </TooltipProvider>
-                    ) : (
-                      <Switch 
-                        checked={!!group.selected} 
-                        onCheckedChange={checked => handleToggleGroup(group.id, checked)}
-                      />
-                    )}
+                    <div className="flex flex-col items-end gap-2">
+                      {isGroupLocked ? (
+                        <TooltipProvider>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <div className="flex items-center gap-2">
+                                <Lock className="h-4 w-4 text-muted-foreground" />
+                                <Switch 
+                                  checked={false}
+                                  disabled={true}
+                                  className="opacity-50"
+                                />
+                              </div>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                              <p>Unlock multiple groups with Message Board+</p>
+                            </TooltipContent>
+                          </Tooltip>
+                        </TooltipProvider>
+                      ) : (
+                        <Switch 
+                          checked={!!group.selected} 
+                          onCheckedChange={checked => handleToggleGroup(group.id, checked)}
+                        />
+                      )}
+                      
+                      {group.selected && (
+                        <Button 
+                          variant="outline" 
+                          size="sm" 
+                          className="text-xs"
+                          onClick={() => handleViewRecap(group.id)}
+                        >
+                          <MessageSquare className="h-3 w-3 mr-1" /> 
+                          View Chat Recap
+                        </Button>
+                      )}
+                    </div>
                   </div>
                 </CardContent>
               </Card>
