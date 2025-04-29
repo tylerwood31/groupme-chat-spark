@@ -98,11 +98,11 @@ const ActivityChart: React.FC<ActivityChartProps> = ({ data }) => {
   return (
     <Card className="overflow-visible">
       <CardHeader className="pb-2">
-        <CardTitle className={`${isMobile ? "text-base" : "text-lg"} font-medium flex items-center ${isMobile ? "flex-col" : "gap-2"} ${isMobile ? "items-start" : ""}`}>
+        <CardTitle className={`${isMobile ? "text-base" : "text-lg"} font-medium flex items-center ${isMobile ? "flex-col" : "justify-between"} ${isMobile ? "items-start" : ""}`}>
           Messages Sent per Day
           {busiestDay && (
-            <Badge variant="outline" className={`${isMobile ? "mt-1 self-start" : "ml-auto"} text-xs font-normal`}>
-              <Trophy className="h-3 w-3 mr-1 text-amber-500" />
+            <Badge variant="outline" className="text-xs font-normal flex items-center gap-1 bg-white">
+              <Trophy className="h-3 w-3 text-amber-500" />
               Busiest day: {busiestDay}
             </Badge>
           )}
@@ -150,10 +150,8 @@ const ActivityChart: React.FC<ActivityChartProps> = ({ data }) => {
             </BarChart>
           </ResponsiveContainer>
         </div>
-        <div className={`mt-${isMobile ? "2" : "4"} text-center text-${isMobile ? "xs" : "sm"} text-muted-foreground`}>
-          <p className="italic">
-            {busiestDay} was the group's busiest day. Let's hear it for {busiestDay.includes("Fri") ? "end-of-week" : "mid-week"} chaos! 📈
-          </p>
+        <div className="mt-4 text-center text-sm text-muted-foreground italic">
+          {busiestDay} was the group's busiest day. Let's hear it for {busiestDay.includes("Fri") ? "end-of-week" : "mid-week"} chaos! 📈
         </div>
       </CardContent>
     </Card>

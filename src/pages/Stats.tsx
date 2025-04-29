@@ -3,12 +3,13 @@ import React, { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
-import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, BarChart, Bar } from "recharts";
+import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { TrendingUp, MessageSquare, Heart, Award, Star, Clock, ArrowUp } from "lucide-react";
 import { WeeklyStats } from "@/types";
 import { cn } from "@/lib/utils";
 import { ChartContainer, ChartTooltipContent } from "@/components/ui/chart";
 import StatsPeriodSelector, { StatsPeriod } from "@/components/StatsPeriodSelector";
+import ActivityChart from "@/components/ActivityChart";
 
 const Stats: React.FC = () => {
   const [statsPeriod, setStatsPeriod] = useState<StatsPeriod>("7day");
@@ -168,48 +169,9 @@ const Stats: React.FC = () => {
         </Card>
       </div>
       
-      {/* Trend Chart Section */}
+      {/* Activity Chart Section - Updated */}
       <div className="mb-8">
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <TrendingUp className="h-5 w-5 text-groupme-primary" />
-              {statsPeriod === "daily" ? "Hourly Activity" : statsPeriod === "7day" ? "Weekly Activity" : "Monthly Activity"}
-            </CardTitle>
-            <CardDescription>Your messages and likes by {statsPeriod === "daily" ? "hour" : statsPeriod === "7day" ? "day" : "week"}</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="h-72">
-              <ChartContainer config={chartConfig}>
-                <ResponsiveContainer width="100%" height="100%">
-                  <LineChart data={stats.daily_activity}>
-                    <XAxis dataKey="day" />
-                    <YAxis />
-                    <Tooltip content={<ChartTooltipContent />} />
-                    <Line 
-                      type="monotone" 
-                      dataKey="messages" 
-                      stroke="#00AFF0" 
-                      strokeWidth={2} 
-                      dot={{ fill: '#00AFF0', r: 4, strokeWidth: 2 }}
-                      activeDot={{ r: 6 }}
-                      name="messages"
-                    />
-                    <Line 
-                      type="monotone" 
-                      dataKey="likes" 
-                      stroke="#6C5CE7" 
-                      strokeWidth={2} 
-                      dot={{ fill: '#6C5CE7', r: 4, strokeWidth: 2 }}
-                      activeDot={{ r: 6 }}
-                      name="likes"
-                    />
-                  </LineChart>
-                </ResponsiveContainer>
-              </ChartContainer>
-            </div>
-          </CardContent>
-        </Card>
+        <ActivityChart data={stats.daily_activity} />
       </div>
       
       {/* Personal Bests Section */}
