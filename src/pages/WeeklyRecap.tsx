@@ -106,6 +106,21 @@ const WeeklyRecap: React.FC = () => {
     { day: "Sun", messages: 53 }
   ];
   
+  // Sample text recap for demonstration
+  const textRecap = recap.text_recap || `
+    ## ${recap.group_name} Weekly Recap: ${recap.period}
+    
+    What a week it's been in **${recap.group_name}**! We saw a total of **${recap.total_messages} messages** and **${recap.total_likes} likes** exchanged. Friday was our most active day, with conversations peaking around evening hours.
+    
+    **${recap.top_poster.name}** dominated the chat this week with an impressive **${recap.top_poster.message_count} messages**, while **${recap.most_liked.name}** was clearly the crowd favorite, collecting **${recap.most_liked.likes_count} likes**.
+    
+    The group couldn't stop talking about ${recap.trending_topics.join(', ')}. Plenty of hot takes, but none quite as memorable as ${recap.highlight_message.sender}'s gem: "${recap.highlight_message.text}" which collected ${recap.highlight_message.likes} likes!
+    
+    Some members were noticeably quiet this week – no messages from the usual suspects. Are they on vacation or just lurking? 👀
+    
+    Looking forward to next week's chaos! Remember, what happens in GroupMe gets immortalized in these recaps.
+  `;
+  
   return (
     <ScrollArea className="h-screen">
       <div className="container max-w-4xl px-4 py-8 pb-24 animate-fade-in">
@@ -113,7 +128,7 @@ const WeeklyRecap: React.FC = () => {
         <header className="mb-8 bg-gradient-to-r from-groupme-primary to-groupme-accent p-6 rounded-lg text-white relative overflow-hidden">
           <div className="absolute inset-0 opacity-10 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAg
           IDxwYXRoIGQ9Ik0zNiAxOGMzLjMxNCAwIDYtMi42ODYgNi02cy0yLjY4Ni02LTYtNi02IDIuNjg2LTYgNiAyLjY4NiA2IDYgNnptMCAxMmM2LjA3NSAwIDExLTQuOTI1IDExLTExcy
-          00LjkyNS0xMS0xMS0xMS0xMSA0LjkyNS0xMSAxMSA0LjkyNSAxMSAxMSAxMXptLTE4LTdh4CAgIAOIDAyIDA9IjAgMSAwLTE4IDAgOSA5IDAgMCAxIDE4IDB6IiBmaWxsLW9wYWNpdHk9Ii4yIiBmaWxsPSIjRkZGIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiLz4KPC9zdmc+')]"></div>
+          00LjkyNS0xMS0xMS0xMS0xMSA0LjkyNS0xMSAxMSA0LjkyNSAxMSAxMSAxMXptLTE4LTdha4CAgIAOIDAyIDA9IjAgMSAwLTE4IDAgOSA5IDAgMCAxIDE4IDB6IiBmaWxsLW9wYWNpdHk9Ii4yIiBmaWxsPSIjRkZGIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiLz4KPC9zdmc+')]"></div>
           
           <div className="flex items-center">
             <div className="w-20 h-20 rounded-xl bg-white/20 overflow-hidden mr-6">
@@ -438,6 +453,26 @@ const WeeklyRecap: React.FC = () => {
             </Card>
           </section>
         )}
+        
+        {/* Text Recap Section - NEW SECTION */}
+        <section className="mb-10">
+          <h2 className="text-xl font-bold mb-4 flex items-center">
+            <MessageSquare className="h-5 w-5 mr-2 text-groupme-primary" />
+            Newsletter Recap
+          </h2>
+          
+          <Card className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800">
+            <CardContent className="pt-6">
+              <div className="prose dark:prose-invert max-w-full">
+                {textRecap.split('\n\n').map((paragraph, index) => (
+                  <p key={index} className={index === 0 ? "text-xl font-bold mb-4" : "mb-3"}>
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </section>
         
         {/* Share Buttons */}
         <section className="mb-10 flex flex-col md:flex-row gap-4">

@@ -1,5 +1,4 @@
 
-
 export interface User {
   id: string;
   name: string;
@@ -61,6 +60,7 @@ export interface RecapSummary {
     messages: number;
     likes: number;
   }>;
+  text_recap?: string; // New field for the text recap
 }
 
 export interface UserStats {
