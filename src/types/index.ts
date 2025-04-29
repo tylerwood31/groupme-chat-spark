@@ -64,3 +64,35 @@ export interface UserStats {
   likes_given: number;
   activity_score: number;
 }
+
+export interface WeeklyStats {
+  rank: number;
+  total_members: number;
+  messages_sent: number;
+  likes_received: number;
+  like_ratio: number;
+  most_active_day: string;
+  most_active_time: string;
+  streak_days: number;
+  streak_type?: string;
+  personal_bests: {
+    most_messages_day: {
+      count: number;
+      date: string;
+    };
+    most_likes_week: {
+      count: number;
+      date: string;
+    };
+    most_liked_message: {
+      text: string;
+      likes: number;
+      date: string;
+    };
+  };
+  daily_activity: Array<{
+    day: string;
+    messages: number;
+    likes: number;
+  }>;
+}
