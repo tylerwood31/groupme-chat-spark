@@ -4,7 +4,7 @@ import StatCard from "./StatCard";
 import TopContributorsCard from "./TopContributorsCard";
 import TrendingTopicsCard from "./TrendingTopicsCard";
 import HighlightMessageCard from "./HighlightMessageCard";
-import { MessageSquare, ThumbsUp } from "lucide-react";
+import { MessageSquare, ThumbsUp, TrendingUp } from "lucide-react";
 import { RecapSummary } from "@/types";
 
 interface OverviewTabProps {
@@ -34,11 +34,7 @@ const OverviewTab: React.FC<OverviewTabProps> = ({ recap }) => {
         <StatCard 
           title="Activity Score"
           value={Math.floor((recap.total_messages * 0.7 + recap.total_likes * 0.3) / 10)}
-          icon={() => (
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-            </svg>
-          )}
+          icon={TrendingUp}
           iconBgClass="bg-green-100"
           iconColorClass="text-green-600"
         />
