@@ -14,6 +14,7 @@ import {
 import { Flame, Trophy } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Badge } from "./ui/badge";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface ActivityChartProps {
   data: Array<{
@@ -23,6 +24,8 @@ interface ActivityChartProps {
 }
 
 const ActivityChart: React.FC<ActivityChartProps> = ({ data }) => {
+  const isMobile = useIsMobile();
+  
   const enhancedData = useMemo(() => {
     // Find max value for highlighting
     let maxValue = 0;
@@ -98,7 +101,7 @@ const ActivityChart: React.FC<ActivityChartProps> = ({ data }) => {
         <CardTitle className="text-lg font-medium flex items-center gap-2">
           Messages Sent per Day
           {busiestDay && (
-            <Badge variant="outline" className="ml-auto text-xs font-normal">
+            <Badge variant="outline" className={`${isMobile ? "block mt-1" : "ml-auto"} text-xs font-normal`}>
               <Trophy className="h-3 w-3 mr-1 text-amber-500" />
               Busiest day: {busiestDay}
             </Badge>
@@ -106,20 +109,20 @@ const ActivityChart: React.FC<ActivityChartProps> = ({ data }) => {
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="h-64">
+        <div className={`${isMobile ? "h-56" : "h-64"}`}>
           <ResponsiveContainer width="100%" height="100%">
             <BarChart
               data={enhancedData}
-              margin={{ top: 30, right: 10, left: 0, bottom: 5 }}
+              margin={{ top: 30, right: isMobile ? 0 : 10, left: 0, bottom: 5 }}
               barGap={5}
-              barCategoryGap="20%"
+              barCategoryGap={isMobile ? "15%" : "20%"}
             >
               <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f0f0f0" />
               <XAxis 
                 dataKey="day" 
                 axisLine={false} 
                 tickLine={false}
-                tick={{ fontSize: 12 }}
+                tick={{ fontSize: isMobile ? 10 : 12 }}
               />
               <YAxis 
                 hide 
@@ -133,7 +136,7 @@ const ActivityChart: React.FC<ActivityChartProps> = ({ data }) => {
                 dataKey="messages" 
                 fill="#D3E4FD" 
                 radius={[4, 4, 0, 0]} 
-                maxBarSize={60}
+                maxBarSize={isMobile ? 40 : 60}
                 fillOpacity={0.9}
               >
                 <LabelList dataKey="messages" content={<CustomizedLabel />} />
