@@ -19,7 +19,7 @@ const Login: React.FC = () => {
         <div className="p-8">
           <div className="flex justify-center mb-6">
             <img 
-              src="/lovable-uploads/f63ef4e5-4806-4a6e-9bdb-30e9b4a97738.png" 
+              src="/lovable-uploads/1cccf406-1ec0-4d09-8a52-fc35dec8d3c9.png" 
               alt="GroupMe Logo" 
               className="w-16 h-16 object-contain"
             />
@@ -40,7 +40,7 @@ const Login: React.FC = () => {
               ) : (
                 <>
                   <img 
-                    src="/lovable-uploads/f63ef4e5-4806-4a6e-9bdb-30e9b4a97738.png" 
+                    src="/lovable-uploads/1cccf406-1ec0-4d09-8a52-fc35dec8d3c9.png" 
                     alt="GroupMe Logo" 
                     className="h-5 w-5 mr-2"
                   />
