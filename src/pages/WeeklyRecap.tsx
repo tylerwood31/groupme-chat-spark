@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { fetchRecapSummary, fetchUserStats } from "../services/api";
@@ -21,8 +20,7 @@ import {
   Clock
 } from "lucide-react";
 import { toast } from "sonner";
-import { ChartContainer } from "@/components/ui/chart";
-import { Bar, BarChart, ResponsiveContainer, Tooltip, XAxis } from "recharts";
+import ActivityChart from "@/components/ActivityChart";
 
 const WeeklyRecap: React.FC = () => {
   const { id: groupId } = useParams<{ id: string }>();
@@ -331,23 +329,7 @@ const WeeklyRecap: React.FC = () => {
             Weekly Activity
           </h2>
           
-          <Card>
-            <CardContent className="pt-6">
-              <div className="h-64">
-                <ChartContainer config={{
-                  messages: { 
-                    color: "var(--groupme-primary)" 
-                  }
-                }}>
-                  <BarChart data={activityData} margin={{ top: 10, right: 10, bottom: 20, left: 0 }}>
-                    <XAxis dataKey="day" />
-                    <Tooltip />
-                    <Bar dataKey="messages" fill="var(--groupme-primary)" radius={[4, 4, 0, 0]} />
-                  </BarChart>
-                </ChartContainer>
-              </div>
-            </CardContent>
-          </Card>
+          <ActivityChart data={activityData} />
         </section>
         
         {/* Weekly Highlights */}
@@ -454,7 +436,7 @@ const WeeklyRecap: React.FC = () => {
           </section>
         )}
         
-        {/* Text Recap Section - NEW SECTION */}
+        {/* Text Recap Section */}
         <section className="mb-10">
           <h2 className="text-xl font-bold mb-4 flex items-center">
             <MessageSquare className="h-5 w-5 mr-2 text-groupme-primary" />
