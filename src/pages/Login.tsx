@@ -18,9 +18,11 @@ const Login: React.FC = () => {
       <div className="animate-fade-in max-w-md w-full bg-white rounded-xl shadow-lg overflow-hidden">
         <div className="p-8">
           <div className="flex justify-center mb-6">
-            <div className="w-16 h-16 rounded-full bg-groupme-primary text-white flex items-center justify-center text-2xl font-bold">
-              G
-            </div>
+            <img 
+              src="/lovable-uploads/f63ef4e5-4806-4a6e-9bdb-30e9b4a97738.png" 
+              alt="GroupMe Logo" 
+              className="w-16 h-16 object-contain"
+            />
           </div>
           <h1 className="text-3xl font-bold text-center mb-2 gradient-text">GroupMe Recap</h1>
           <p className="text-center text-muted-foreground mb-8">
@@ -37,10 +39,11 @@ const Login: React.FC = () => {
                 <div className="h-5 w-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
               ) : (
                 <>
-                  <svg className="h-5 w-5 mr-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 2C6.477 2 2 6.477 2 12C2 17.523 6.477 22 12 22C17.523 22 22 17.523 22 12C22 6.477 17.523 2 12 2Z" fill="currentColor" />
-                    <path d="M16 12C16 14.209 14.209 16 12 16C9.791 16 8 14.209 8 12C8 9.791 9.791 8 12 8C14.209 8 16 9.791 16 12Z" fill="white" />
-                  </svg>
+                  <img 
+                    src="/lovable-uploads/f63ef4e5-4806-4a6e-9bdb-30e9b4a97738.png" 
+                    alt="GroupMe Logo" 
+                    className="h-5 w-5 mr-2"
+                  />
                   <span>Continue with GroupMe</span>
                 </>
               )}
