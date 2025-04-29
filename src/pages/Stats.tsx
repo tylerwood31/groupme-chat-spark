@@ -8,8 +8,11 @@ import { TrendingUp, MessageSquare, Heart, Award, Star, Clock, ArrowUp } from "l
 import { WeeklyStats } from "@/types";
 import { cn } from "@/lib/utils";
 import { ChartContainer, ChartTooltipContent } from "@/components/ui/chart";
+import StatsPeriodSelector, { StatsPeriod } from "@/components/StatsPeriodSelector";
 
 const Stats: React.FC = () => {
+  const [statsPeriod, setStatsPeriod] = useState<StatsPeriod>("7day");
+  
   // Mock data for demonstration - in a real app this would come from an API
   const [stats] = useState<WeeklyStats>({
     rank: 2,
@@ -47,6 +50,15 @@ const Stats: React.FC = () => {
     ]
   });
 
+  // Get period text for display
+  const getPeriodText = () => {
+    switch(statsPeriod) {
+      case "daily": return "Today, Apr 29, 2024";
+      case "7day": return "Weekly performance for Apr 22-28, 2024";
+      case "30day": return "Monthly performance for Apr 1-30, 2024";
+    }
+  };
+
   const chartConfig = {
     messages: {
       label: "Messages",
@@ -63,9 +75,14 @@ const Stats: React.FC = () => {
 
   return (
     <div className="container max-w-4xl px-4 py-8 animate-fade-in">
-      <header className="mb-6">
-        <h1 className="text-3xl font-bold gradient-text">Your Stats</h1>
-        <p className="text-muted-foreground">Weekly performance for Apr 22-28, 2024</p>
+      <header className="mb-6 flex flex-col md:flex-row md:items-center md:justify-between">
+        <div>
+          <h1 className="text-3xl font-bold gradient-text">Your Stats</h1>
+          <p className="text-muted-foreground">{getPeriodText()}</p>
+        </div>
+        <div className="mt-3 md:mt-0">
+          <StatsPeriodSelector period={statsPeriod} onChange={setStatsPeriod} />
+        </div>
       </header>
       
       {/* Weekly Rank Section */}
@@ -83,7 +100,7 @@ const Stats: React.FC = () => {
               </div>
               <div>
                 <h2 className="text-xl md:text-2xl font-bold">You're #{stats.rank} in Messages Sent</h2>
-                <p className="text-muted-foreground">Out of {stats.total_members} members this week</p>
+                <p className="text-muted-foreground">Out of {stats.total_members} members this {statsPeriod === "daily" ? "day" : statsPeriod === "7day" ? "week" : "month"}</p>
               </div>
             </div>
             <Badge className="text-base bg-groupme-accent hover:bg-groupme-accent/90 py-2 px-4">
@@ -104,7 +121,7 @@ const Stats: React.FC = () => {
           </CardHeader>
           <CardContent className="pt-0">
             <div className="text-4xl font-bold">{stats.messages_sent}</div>
-            <p className="text-sm text-muted-foreground">This week</p>
+            <p className="text-sm text-muted-foreground">This {statsPeriod === "daily" ? "day" : statsPeriod === "7day" ? "week" : "month"}</p>
           </CardContent>
         </Card>
         
@@ -117,7 +134,7 @@ const Stats: React.FC = () => {
           </CardHeader>
           <CardContent className="pt-0">
             <div className="text-4xl font-bold">{stats.likes_received}</div>
-            <p className="text-sm text-muted-foreground">This week</p>
+            <p className="text-sm text-muted-foreground">This {statsPeriod === "daily" ? "day" : statsPeriod === "7day" ? "week" : "month"}</p>
           </CardContent>
         </Card>
       </div>
@@ -157,9 +174,9 @@ const Stats: React.FC = () => {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <TrendingUp className="h-5 w-5 text-groupme-primary" />
-              Weekly Activity
+              {statsPeriod === "daily" ? "Hourly Activity" : statsPeriod === "7day" ? "Weekly Activity" : "Monthly Activity"}
             </CardTitle>
-            <CardDescription>Your messages and likes by day</CardDescription>
+            <CardDescription>Your messages and likes by {statsPeriod === "daily" ? "hour" : statsPeriod === "7day" ? "day" : "week"}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="h-72">
@@ -258,7 +275,7 @@ const Stats: React.FC = () => {
           "bg-gradient-to-br from-background to-groupme-primary/5"
         )}>
           <Clock className="h-5 w-5" />
-          <AlertTitle className="text-lg font-medium mb-2">Fun Fact of the Week</AlertTitle>
+          <AlertTitle className="text-lg font-medium mb-2">Fun Fact of the {statsPeriod === "daily" ? "Day" : statsPeriod === "7day" ? "Week" : "Month"}</AlertTitle>
           <AlertDescription>
             <p className="mb-1">You posted most during <span className="font-semibold">{stats.most_active_time}</span></p>
             <p><span className="font-semibold">{stats.most_active_day}</span> was your loudest day.</p>
