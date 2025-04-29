@@ -1,4 +1,5 @@
 
+
 export interface User {
   id: string;
   name: string;
@@ -35,8 +36,10 @@ export interface RecapSummary {
   period: string;
   date: string;
   group_name: string;
+  group_image_url?: string;
   total_messages: number;
   total_likes: number;
+  member_count?: number;
   top_poster: {
     name: string;
     avatar_url: string;
@@ -53,6 +56,11 @@ export interface RecapSummary {
     sender: string;
     likes: number;
   };
+  daily_activity?: Array<{
+    day: string;
+    messages: number;
+    likes: number;
+  }>;
 }
 
 export interface UserStats {
@@ -63,6 +71,7 @@ export interface UserStats {
   likes_received: number;
   likes_given: number;
   activity_score: number;
+  rank?: number;
 }
 
 export interface WeeklyStats {

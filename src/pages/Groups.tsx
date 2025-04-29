@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import { fetchGroups, updateGroupSelection } from "../services/api";
@@ -99,7 +100,7 @@ const Groups: React.FC = () => {
   };
 
   const handleViewRecap = (groupId: string) => {
-    navigate(`/recap/${groupId}`);
+    navigate(`/weekly-recap/${groupId}`);
   };
 
   return (

@@ -11,6 +11,7 @@ import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Groups from "./pages/Groups";
 import RecapDetail from "./pages/RecapDetail";
+import WeeklyRecap from "./pages/WeeklyRecap";
 import Stats from "./pages/Stats";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
@@ -62,6 +63,14 @@ const AppRoutes = () => {
         <ProtectedRoute>
           <Layout>
             <RecapDetail />
+          </Layout>
+        </ProtectedRoute>
+      } />
+      
+      <Route path="/weekly-recap/:id" element={
+        <ProtectedRoute>
+          <Layout>
+            <WeeklyRecap />
           </Layout>
         </ProtectedRoute>
       } />
