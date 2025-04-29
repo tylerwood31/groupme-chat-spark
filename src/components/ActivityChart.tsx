@@ -79,16 +79,16 @@ const ActivityChart: React.FC<ActivityChartProps> = ({ data }) => {
       <g>
         <text 
           x={x + width/2} 
-          y={y - 10} 
+          y={isMobile ? y - 6 : y - 10} 
           fill={payload.isMax ? "#8B5CF6" : "#6B7280"} 
           textAnchor="middle"
-          className="text-xs font-medium"
+          className={isMobile ? "text-[10px] font-medium" : "text-xs font-medium"}
         >
           {value}
         </text>
         {payload.isMax && (
-          <g transform={`translate(${x + width/2 - 9}, ${y - 35})`}>
-            <Flame className="h-4.5 w-4.5 text-amber-500" />
+          <g transform={`translate(${x + width/2 - 9}, ${isMobile ? y - 25 : y - 35})`}>
+            <Flame className={isMobile ? "h-4 w-4 text-amber-500" : "h-4.5 w-4.5 text-amber-500"} />
           </g>
         )}
       </g>
@@ -96,12 +96,12 @@ const ActivityChart: React.FC<ActivityChartProps> = ({ data }) => {
   };
 
   return (
-    <Card>
+    <Card className="overflow-visible">
       <CardHeader className="pb-2">
-        <CardTitle className="text-lg font-medium flex items-center gap-2">
+        <CardTitle className={`${isMobile ? "text-base" : "text-lg"} font-medium flex items-center ${isMobile ? "flex-col" : "gap-2"} ${isMobile ? "items-start" : ""}`}>
           Messages Sent per Day
           {busiestDay && (
-            <Badge variant="outline" className={`${isMobile ? "block mt-1" : "ml-auto"} text-xs font-normal`}>
+            <Badge variant="outline" className={`${isMobile ? "mt-1 self-start" : "ml-auto"} text-xs font-normal`}>
               <Trophy className="h-3 w-3 mr-1 text-amber-500" />
               Busiest day: {busiestDay}
             </Badge>
@@ -109,13 +109,18 @@ const ActivityChart: React.FC<ActivityChartProps> = ({ data }) => {
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <div className={`${isMobile ? "h-56" : "h-64"}`}>
+        <div className={`${isMobile ? "h-48 -mx-2" : "h-60"}`}>
           <ResponsiveContainer width="100%" height="100%">
             <BarChart
               data={enhancedData}
-              margin={{ top: 30, right: isMobile ? 0 : 10, left: 0, bottom: 5 }}
-              barGap={5}
-              barCategoryGap={isMobile ? "15%" : "20%"}
+              margin={{ 
+                top: isMobile ? 25 : 30, 
+                right: isMobile ? 5 : 15, 
+                left: isMobile ? -10 : 0, 
+                bottom: isMobile ? 0 : 5 
+              }}
+              barGap={isMobile ? 3 : 5}
+              barCategoryGap={isMobile ? "10%" : "20%"}
             >
               <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f0f0f0" />
               <XAxis 
@@ -123,6 +128,7 @@ const ActivityChart: React.FC<ActivityChartProps> = ({ data }) => {
                 axisLine={false} 
                 tickLine={false}
                 tick={{ fontSize: isMobile ? 10 : 12 }}
+                dy={isMobile ? 5 : 0}
               />
               <YAxis 
                 hide 
@@ -136,7 +142,7 @@ const ActivityChart: React.FC<ActivityChartProps> = ({ data }) => {
                 dataKey="messages" 
                 fill="#D3E4FD" 
                 radius={[4, 4, 0, 0]} 
-                maxBarSize={isMobile ? 40 : 60}
+                maxBarSize={isMobile ? 32 : 60}
                 fillOpacity={0.9}
               >
                 <LabelList dataKey="messages" content={<CustomizedLabel />} />
@@ -144,7 +150,7 @@ const ActivityChart: React.FC<ActivityChartProps> = ({ data }) => {
             </BarChart>
           </ResponsiveContainer>
         </div>
-        <div className="mt-4 text-center text-sm text-muted-foreground">
+        <div className={`mt-${isMobile ? "2" : "4"} text-center text-${isMobile ? "xs" : "sm"} text-muted-foreground`}>
           <p className="italic">
             {busiestDay} was the group's busiest day. Let's hear it for {busiestDay.includes("Fri") ? "end-of-week" : "mid-week"} chaos! 📈
           </p>
